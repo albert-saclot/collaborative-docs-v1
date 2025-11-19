@@ -12,9 +12,10 @@ import (
 
 // Config holds server configuration.
 type Config struct {
-	Port       string
-	StaticDir  string
-	LogEnabled bool
+	Port           string
+	StaticDir      string
+	LogEnabled     bool
+	AllowedOrigins string
 }
 
 // Server represents the HTTP server and its dependencies.
@@ -28,6 +29,10 @@ type Server struct {
 // New creates and initializes a new Server instance.
 func New(cfg Config) *Server {
 	h := hub.NewHub()
+
+	if cfg.AllowedOrigins != "" {
+		setAllowedOrigins(cfg.AllowedOrigins)
+	}
 
 	s := &Server{
 		config: cfg,
