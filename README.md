@@ -21,6 +21,16 @@ go run cmd/server/main.go
 
 The server starts at `http://localhost:8080`
 
+### Run with Docker
+
+```bash
+# Build the image
+docker build -t collaborative-docs .
+
+# Run the container
+docker run -p 8080:8080 collaborative-docs
+```
+
 ### Try It Out
 
 1. Open `http://localhost:8080/doc/test-doc` in your browser
@@ -131,14 +141,28 @@ The application uses a **hub-and-spoke** pattern:
 
 ## Configuration
 
-Server configuration in `cmd/server/main.go`:
+The server can be configured using environment variables:
 
-```go
-srv := server.New(server.Config{
-    Port:       ":8080",
-    StaticDir:  "static",
-    LogEnabled: true,
-})
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `PORT` | `8080` | Server port |
+| `STATIC_DIR` | `static` | Path to static files |
+| `LOG_ENABLED` | `true` | Enable logging |
+| `ALLOWED_ORIGINS` | `http://localhost:8080,http://127.0.0.1:8080` | Comma-separated list of allowed WebSocket origins |
+
+Example with custom configuration:
+
+```bash
+PORT=3000 ALLOWED_ORIGINS="https://example.com" go run cmd/server/main.go
+```
+
+Or with Docker:
+
+```bash
+docker run -p 3000:3000 \
+  -e PORT=3000 \
+  -e ALLOWED_ORIGINS="https://example.com,https://app.example.com" \
+  collaborative-docs
 ```
 
 ## Testing
@@ -206,11 +230,12 @@ Examples: `my-notes`, `team_doc`, `Project123`
 
 For production deployment:
 
-1. **Update CORS settings** - Restrict `CheckOrigin` in `handlers.go`
+1. **Configure allowed origins** - Set `ALLOWED_ORIGINS` environment variable to your domain(s)
 2. **Add persistence** - Currently documents are in-memory only
 3. **Add authentication** - No user authentication currently
 4. **Configure timeouts** - Review WebSocket timeout settings
 5. **Add monitoring** - Implement metrics and logging
+6. **Use Docker** - Deploy using the provided Dockerfile
 
 ## Code Quality & Improvements
 
