@@ -10,27 +10,37 @@ import (
 	"github.com/gorilla/websocket"
 )
 
+var allowedOrigins []string
+
+func init() {
+	allowedOrigins = []string{
+		"http://localhost:8080",
+		"http://127.0.0.1:8080",
+	}
+}
+
+func setAllowedOrigins(origins string) {
+	if origins == "" {
+		return
+	}
+	allowedOrigins = []string{}
+	for _, o := range strings.Split(origins, ",") {
+		if trimmed := strings.TrimSpace(o); trimmed != "" {
+			allowedOrigins = append(allowedOrigins, trimmed)
+		}
+	}
+}
+
 var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,
 	WriteBufferSize: 1024,
 	CheckOrigin:     checkOrigin,
 }
 
-// checkOrigin validates the WebSocket upgrade request origin.
-// In development, allows localhost connections.
-// In production, should be configured with explicit allowed origins.
 func checkOrigin(r *http.Request) bool {
 	origin := r.Header.Get("Origin")
 	if origin == "" {
-		// No origin header means same-origin or non-browser client
 		return true
-	}
-
-	// Allow localhost and 127.0.0.1 for development
-	// In production, use Config.AllowedOrigins instead
-	allowedOrigins := []string{
-		"http://localhost:8080",
-		"http://127.0.0.1:8080",
 	}
 
 	for _, allowed := range allowedOrigins {
@@ -39,7 +49,7 @@ func checkOrigin(r *http.Request) bool {
 		}
 	}
 
-	log.Printf("rejected websocket connection from unauthorized origin: %s", origin)
+	log.Printf("rejected websocket connection from origin: %s", origin)
 	return false
 }
 
