@@ -13,7 +13,17 @@ A real-time collaborative document editor built with Go and WebSockets. Multiple
 
 ## Quick Start
 
-### Run the Server
+### Using Make (recommended)
+
+```bash
+make run          # Build and run server
+make test         # Run tests
+make docker-build # Build Docker image
+make docker-run   # Run in Docker
+make help         # Show all commands
+```
+
+### Manual Build
 
 ```bash
 go run cmd/server/main.go
@@ -24,10 +34,7 @@ The server starts at `http://localhost:8080`
 ### Run with Docker
 
 ```bash
-# Build the image
 docker build -t collaborative-docs .
-
-# Run the container
 docker run -p 8080:8080 collaborative-docs
 ```
 
@@ -48,14 +55,12 @@ Each document is completely independent with its own content and user count.
 ### Run Tests
 
 ```bash
-# Run all tests
+make test         # Run all tests
+make test-verbose # Run with verbose output
+
+# Or use go directly
 go test ./...
-
-# Run with coverage
 go test -cover ./...
-
-# Verbose output
-go test -v ./...
 ```
 
 ## Project Structure
