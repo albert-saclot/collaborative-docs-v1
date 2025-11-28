@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"time"
 
-	"collaborative-docs/internal/hub"
+	"github.com/albert-saclot/collaborative-docs-v1/internal/hub"
 )
 
 // Config holds server configuration.

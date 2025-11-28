@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strings"
 
-	"collaborative-docs/internal/hub"
+	"github.com/albert-saclot/collaborative-docs-v1/internal/hub"
 
 	"github.com/gorilla/websocket"
 )

@@ -1,7 +1,7 @@
 package document
 
 import (
-	"collaborative-docs/internal/operations"
+	"github.com/albert-saclot/collaborative-docs-v1/internal/operations"
 	"sync"
 	"time"
 )
