@@ -1,8 +1,8 @@
 package server_test
 
 import (
-	"collaborative-docs/internal/hub"
-	"collaborative-docs/internal/server/testutil"
+	"github.com/albert-saclot/collaborative-docs-v1/internal/hub"
+	"github.com/albert-saclot/collaborative-docs-v1/internal/server/testutil"
 	"log"
 	"net/http"
 	"net/http/httptest"

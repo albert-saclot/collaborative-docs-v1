@@ -7,7 +7,7 @@ import (
 	"strings"
 	"syscall"
 
-	"collaborative-docs/internal/server"
+	"github.com/albert-saclot/collaborative-docs-v1/internal/server"
 )
 
 func main() {

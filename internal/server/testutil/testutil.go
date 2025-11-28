@@ -1,7 +1,7 @@
 package testutil
 
 import (
-	"collaborative-docs/internal/hub"
+	"github.com/albert-saclot/collaborative-docs-v1/internal/hub"
 	"encoding/json"
 	"strings"
 	"testing"

@@ -1,7 +1,7 @@
 package hub
 
 import (
-	"collaborative-docs/internal/document"
+	"github.com/albert-saclot/collaborative-docs-v1/internal/document"
 	"log"
 	"sync"
 )

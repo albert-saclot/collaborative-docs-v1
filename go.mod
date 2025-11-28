@@ -1,4 +1,4 @@
-module collaborative-docs
+module github.com/albert-saclot/collaborative-docs-v1
 
 go 1.25
 
